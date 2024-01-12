@@ -8,7 +8,7 @@ library(fs)
 
 source("R/functions.R")
 
-# Set up files
+# Set up file paths
 # - original PO files (each downloaded from a single Transifex PO file)
 po_orig <- dir_ls("data/po")
 # - segmented PO files (to write)
