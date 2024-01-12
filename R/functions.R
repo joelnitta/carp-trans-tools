@@ -53,6 +53,30 @@ po2csv <- function(po_file, csv_file, other_args = NULL) {
   csv_file
 }
 
+#' Convert a CSV file to a PO file
+#'
+#' Uses the
+#' [csv2po](http://docs.translatehouse.org/projects/translate-toolkit/en/latest/commands/csv2po.html)
+#' tool from the Translate Toolkit.
+#'
+#' @param csv_file Path to input CSV file.
+#' @param po_file Path to write converted PO file.
+#' @param other_args Vector of additional arguments to pass to `csv2po`.
+#'   For details on how to format this, see `babelwhale::run()`.
+#'
+#' @return Path to the converted PO file.
+csv2po <- function(csv_file, po_file, other_args = NULL) {
+  babelwhale::run_auto_mount(
+  "joelnitta/translation-tools:latest",
+  "csv2po",
+  args = c(
+    file = csv_file,
+    file = po_file,
+    other_args
+  )
+  )
+  po_file
+}
 
 #' Clean up text
 #'
