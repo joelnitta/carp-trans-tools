@@ -12,14 +12,33 @@ temp_csv <- tempfile(fileext = ".csv")
 # Input CSV should have one column for 'string' and one column for the
 # translation of the string for the terms listed in
 # https://carpentries.github.io/sandpaper/articles/translations.html#list-of-translation-variables
-
 csv_to_convert <-
   read_csv("data/web_elements_uk.csv") %>%
-  mutate(location = 1:nrow(.)) %>%
-  select(location, source = string, target = ukrainian)
+  select(source = string, target = ukrainian) %>%
+  mutate(source = str_remove_all(source, "'"))
 
-write_csv(csv_to_convert, temp_csv)
+# PO template file comes from running potools::po_create() in {sandpaper}
+po_template <- "data/R-uk.po"
 
+# Convert the PO template to CSV so we can join to the translations
+temp_csv_from_po <- tempfile(fileext = ".csv")
+
+po2csv(
+  po_template,
+  temp_csv_from_po
+)
+
+# Join the translations, write out as CSV
+po_template_df <- read_csv(temp_csv_from_po)
+
+csv_with_trans <-
+  po_template_df %>%
+  select(-target) %>%
+  left_join(csv_to_convert, by = "source")
+
+write_csv(csv_with_trans, temp_csv)
+
+# Convert the joined translations to PO
 csv2po(
   temp_csv,
   "results/web_elements_uk.po"
