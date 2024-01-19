@@ -4,7 +4,7 @@ Repository with tools for helping to translate [The Carpentries](https://carpent
 
 ## Scripts
 
-### make_trans_mem.R
+### [`make_trans_mem.R`](make_trans_mem.R)
 
 Transifex doesn't allow exporting translation memory without a paid account, so this script does it using PO files that we can download from a standard project.
 
@@ -16,7 +16,7 @@ Save all of these to `data/po`, then run `make_trans_mem.R`.
 
 The final translation memory (a single CSV file) will be written to `results/combined.csv`.
 
-### csv_to_po_sandpaper.R
+### [`csv_to_po_sandpaper.R`](csv_to_po_sandpaper.R)
 
 This is a helper script to make it easier for translators to provide translations for [Sandpaper variables](https://carpentries.github.io/sandpaper/articles/translations.html#list-of-translation-variables).
 
