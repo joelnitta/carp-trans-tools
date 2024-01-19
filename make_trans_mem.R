@@ -10,6 +10,7 @@ source("R/functions.R")
 
 # Set up file paths
 # - original PO files (each downloaded from a single Transifex PO file)
+fs::dir_create("data/po")
 po_orig <- dir_ls("data/po")
 # - segmented PO files (to write)
 po_seg <- path_file(po_orig) %>%
@@ -38,4 +39,5 @@ csv_combined <- csv_files %>%
   )
 
 # This is the final CSV file to use as translation memory
+fs::dir_create("results")
 write_csv(csv_combined, "results/combined.csv")
